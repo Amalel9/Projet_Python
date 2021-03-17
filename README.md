@@ -1,4 +1,4 @@
-# Projet_Python
+## Projet_Python
 
 
 # Exercice 1 : Setup a basic python project
