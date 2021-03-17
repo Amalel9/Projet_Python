@@ -4,6 +4,7 @@
 ## Exercice 1 : Setup a basic python project
 
 #Question 2 
+
 $ git checkout main
 
 #Question 3 
