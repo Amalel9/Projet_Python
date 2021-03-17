@@ -29,7 +29,7 @@ $ pip freeze > requirements.txt
 
 ## Exercice 3 : First implementation 
 
-#Développement de la classe Book pour que le carnet d'ordre ainsi que les executions.  
+#Développement de la classe Book pour que les ordres soient exécutés.  
 
 ## Exercice 4 : Write a bash script to launch the main.py class 
 
