@@ -37,6 +37,8 @@ $ pip freeze > requirements.txt
 
 ## Exercice 5 : Add pandas for visualization
 
+#Branche Pandas créee. 
+
 #Affichage des ordres sur un dataframe. 
 
 
