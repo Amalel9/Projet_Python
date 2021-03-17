@@ -10,14 +10,19 @@ $ git checkout main
 #Question 3 
 
 $ pip3 install virtualenv --force-reinstall
+
 $ python3 -m venv .env
+
 $ source .env/bin/activate
+
 $ echo ".env/" > .gitignore
+
 $ git add .gitignore
 
 #Question 4 
 
 $ pip install -r requirements.txt
+
 $ pip freeze > requirements.txt
 
 
