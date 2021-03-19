@@ -45,4 +45,22 @@ class Order:
 
     def display_order2(self):
         print(self.side, " ",self.quantity,"@",self.price," ","id = ",self.iD, end="")
-        
+
+class Book:
+
+    ''' Constructor of the object Book, this object have a name and he is composed of a listOrder.
+    this list is composed of different order object.'''
+
+    def __init__(self,name, listOrder=[]): 
+        self.name = name
+        self.listOrder = listOrder
+
+    def __repr__(self):
+        return "<{name} | {lsto}>".format(name=self.name, lsto = self.listOrder)
+
+    ''' The method display_book(self) allow to display the name and the content of a Book object. '''
+
+    def display_book(self):
+        print("Book on ",self.name)
+        for i in self.listOrder:
+            print("        ", end="");i.display_order1()
