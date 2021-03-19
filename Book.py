@@ -95,3 +95,36 @@ class Book:
         
         self.display_book()
         print("-----------------------------------------------")
+
+     ''' The method insert_sell(self, quantity, price) allow to insert in the object Book that we use 
+    an order SELL, you need to specify the quantity and the price of the order. Then when the order 
+    is insert in the listOrder of the object Book we display the content of the object Book. '''
+
+    def insert_sell(self,quantity,price):
+        if self.listOrder == []:
+            iD = 1
+        else : 
+            iD = len(self.listOrder)+1
+        
+        orderSell = Order("SELL",quantity,price,iD)
+
+        #Insert the Order in the listOrder of the current Book object
+        self.listOrder.append(orderSell)
+
+        print("--- Insert ", end=""); orderSell.display_order2(); print(" on ",self.name)
+
+        #Sort the current Book object
+        self.sort_order()
+
+        #Check execution
+        self.execute_order_sell()
+
+        #Update the list of order, if one order has a quantity = 0, it is remove from the list
+        self.updateOrderBook()
+
+        #Show the content of the order book
+        
+        self.display_book()
+
+        print("-----------------------------------------------")
+    
