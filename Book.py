@@ -128,7 +128,7 @@ class Book:
 
         print("-----------------------------------------------")
 
-        def sort_order(self):
+    def sort_order(self):
         listBuy = []
         listSell = []
         if (len(self.listOrder) == 0):
@@ -169,5 +169,119 @@ class Book:
 
         #we update listorder of the current Book object with the sorted list of orders "res"
         self.listOrder = res
+
+    def execute_order_sell(self):
+        list_execution =[]
+        list_sell=[]
+        list_buy=[]
+            
+        for i in self.listOrder:
+            if i.side=="BUY" :
+                list_buy.append(i)
+            else:
+                list_sell.append(i)
+
+        lastIndexSell = len(list_sell) -1
+        
+        if len(list_buy) > 0 and len(list_sell) >0:
+            if(list_sell[lastIndexSell].quantity <= list_buy[0].quantity):
+                if (list_sell[lastIndexSell].price <= list_buy[0].price):
+                    diff =  list_buy[0].quantity - list_sell[lastIndexSell].quantity
+                    if diff == 0:
+                        list_buy[0].quantity = 0 #update the quantity of the order BUY
+                    else :
+                        list_buy[0].quantity = diff #update the quantity of the order BUY
+                    list_execution.append("Execute %d at %d on %s" %(list_sell[lastIndexSell].quantity, list_buy[0].price, self.name))
+                    list_sell[lastIndexSell].quantity = 0 #update the quantity of the order SELL
+
+            else : # quantity order sell > quantity order buy 
+                ''' There is 2 cases, the first one is if only 1 order BUY match with the order SELL
+                then we execute a slice of the quantity of the Order SELL and the remaining quantity for the order
+                 BUY is 0. The second case is if several order BUY match with the order SELL, then we execute the
+                 order SELL with the first order BUY until the quantity of this order BUY is 0 then we execute the
+                 order SELL with the next order BUY if the price match etc etc'''
+
+                compteur = 0
+                while compteur < len(list_buy) and list_sell[lastIndexSell].quantity != 0:
+                    if list_sell[lastIndexSell].price <= list_buy[compteur].price:
+                        diff = list_sell[lastIndexSell].quantity - list_buy[compteur].quantity
+                        if diff == 0: #quantity sell = quantity buy
+                            list_execution.append("Execute %d at %d on %s" %(list_buy[compteur].quantity, list_buy[compteur].price, self.name))
+                            list_buy[compteur].quantity = 0 #update the quantity of the order BUY
+                            list_sell[lastIndexSell].quantity = 0 #update the quantity of the order SELL
+                        elif diff > 0 : # quantity sell > quantity buy
+                            list_execution.append("Execute %d at %d on %s" %(list_buy[compteur].quantity, list_buy[compteur].price, self.name))
+                            list_sell[lastIndexSell].quantity = diff #update the quantity of the order SELL
+                            list_buy[compteur].quantity = 0 #update the quantity of the order BUY
+                        else : # quantity sell < quantity buy
+                            list_execution.append("Execute %d at %d on %s" %(list_sell[lastIndexSell].quantity, list_buy[compteur].price, self.name))
+                            list_buy[compteur].quantity = abs(diff) #update the quantity of the order BUY
+                            list_sell[lastIndexSell].quantity = 0 #update the quantity of the order SELL
+                    compteur = compteur +1
+
+            # display all the execution command
+            for i in list_execution:
+                print(i)
+
+    def execute_order_buy(self):
+        list_execution =[]
+        list_sell=[]
+        list_buy=[]
+            
+        for i in self.listOrder:
+            if i.side=="BUY" :
+                list_buy.append(i)
+            else:
+                list_sell.append(i)
+       
+        lastIndexSell = len(list_sell) -1
+            
+        if len(list_buy) != 0 and len(list_sell) !=0:
+            if(list_buy[0].quantity <= list_sell[lastIndexSell].quantity):
+                if (list_sell[lastIndexSell].price <= list_buy[0].price):
+                    diff =  list_sell[lastIndexSell].quantity - list_buy[0].quantity
+                    if diff == 0:
+                        list_sell[lastIndexSell].quantity = 0 #update the quantity of the order SELL
+                    else :
+                        list_sell[lastIndexSell].quantity = diff #update the quantity of the order SELL
+                    list_execution.append("Execute %d at %d on %s" %(list_buy[0].quantity, list_sell[lastIndexSell].price, self.name))
+                    list_buy[0].quantity = 0 #update the quantity of the order BUY
+
+            else : # quantity order buy >  quantity order sell
+                ''' There is 2 cases, the first one is if only 1 order SELL match with the order BUY
+                then we execute a slice of the quantity of the Order BUY and the remaining quantity for the order
+                 SELL is 0. The second case is if several order SELL match with the order BUY, then we execute the
+                 order BUY with the first order SELL until the quantity of this order SELL is 0 then we execute the
+                 order BUY with the next order SELL if the price match etc etc'''
+
+                compteur = lastIndexSell
+                while 0 < compteur and list_buy[0].quantity !=0 :
+                    if list_sell[compteur].price <= list_buy[0].price:
+                        diff = list_buy[0].quantity - list_sell[compteur].quantity
+                        if diff == 0: #quantity buy = quantity sell 
+                            list_execution.append("Execute %d at %d on %s" %(list_buy[0].quantity, list_sell[compteur].price, self.name))
+                            list_buy[0].quantity = 0 #update the quantity of the order BUY
+                            list_sell[compteur].quantity = 0 #update the quantity of the order SELL
+
+                        elif diff > 0 : #  quantity buy > quantity sell
+                            list_execution.append("Execute %d at %d on %s" %(list_sell[compteur].quantity, list_sell[compteur].price, self.name))
+                            list_buy[0].quantity = diff #update the quantity of the order BUY
+                            list_sell[compteur].quantity = 0 #update the quantity of the order SELL
+                            
+                        else : # quantity buy < quantity sell
+                            list_execution.append("Execute %d at %d on %s" %(list_buy[0].quantity, list_sell[compteur].price, self.name))
+                            list_sell[compteur].quantity = abs(diff) #update the quantity of the order SELL
+                            list_buy[0].quantity = 0 #update the quantity of the order BUY
+                            
+                    compteur = compteur - 1
+
+            # display all the execution command
+            for i in list_execution:
+                print(i)
+
+    def updateOrderBook(self):
+            for i in self.listOrder:
+                if i.quantity == 0:
+                    self.listOrder.remove(i)
     
     
