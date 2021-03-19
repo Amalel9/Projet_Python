@@ -64,3 +64,34 @@ class Book:
         print("Book on ",self.name)
         for i in self.listOrder:
             print("        ", end="");i.display_order1()
+
+    ''' The method insert_buy(self, quantity, price) allow to insert in the object Book that we use 
+    an order BUY, you need to specify the quantity and the price of the order. Then when the order 
+    is insert in the listOrder of the object Book we display the content of the object Book. '''
+    
+    def insert_buy(self, quantity, price):
+        if len(self.listOrder)==0:
+            iD = 1
+        else : 
+            iD = len(self.listOrder)+1
+
+        orderBuy = Order("BUY",quantity,price,iD)
+
+        #Insert the Order in the listOrder of the current Book object
+        self.listOrder.append(orderBuy)
+
+        print("--- Insert ", end=""); orderBuy.display_order2(); print(" on ",self.name)
+
+        #Sort the current Book object
+        self.sort_order()
+
+        #Check execution
+        self.execute_order_buy()
+
+        #Update the list of order, if one order has a quantity = 0, it is remove from the list
+        self.updateOrderBook()
+
+        #Show the content of the order book
+        
+        self.display_book()
+        print("-----------------------------------------------")
