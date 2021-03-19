@@ -127,4 +127,47 @@ class Book:
         self.display_book()
 
         print("-----------------------------------------------")
+
+        def sort_order(self):
+        listBuy = []
+        listSell = []
+        if (len(self.listOrder) == 0):
+            res = []
+        else : 
+            for i in self.listOrder:
+                if i.side == "BUY":
+                    listBuy.append(i)
+                else : # the order is SELL
+                    listSell.append(i)
+                # we have 2 list, one composed of the BUY order and the other composed of the SELL order
+
+            #BUY side
+            #we have to check if listBuy is empty or not, if it's not empty we have to sort the BUY order
+  
+            n = len(listBuy) 
+
+            if (n == 0):
+                res = []
+            elif (n == 1):
+                res = listBuy
+            else:
+                listBuy = bubbleSortBuy(listBuy)
+
+            #SELL side
+            #we have to check if listBuy is empty or not, if it's not empty we have to sort the BUY order
+
+            if (len(listSell) == 0):
+                res = []
+            elif (len(listSell) == 1):
+                res = listSell
+            else :
+                listSell = bubbleSortSell(listSell)
+   
+            #listSell sorted
+
+        res = listSell + listBuy
+
+        #we update listorder of the current Book object with the sorted list of orders "res"
+        self.listOrder = res
+    
     
