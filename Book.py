@@ -37,9 +37,8 @@ class Order:
 
     def display_order1(self):
         if self.side == "SELL":
-            if self.quantity !=0 : 
-               print(self.side, "",self.quantity ,"@",self.price," ","id = ",self.iD)
-               #print (self.quantity) test
+            print(self.side, "",self.quantity ,"@",self.price," ","id = ",self.iD)
+            
         elif self.quantity != 0 :
             print(self.side, " ",self.quantity,"@",self.price," ","id = ",self.iD)
 
@@ -63,7 +62,8 @@ class Book:
     def display_book(self):
         print("Book on ",self.name)
         for i in self.listOrder:
-            print("        ", end="");i.display_order1()
+            if i.quantity !=0:
+                print("        ", end="");i.display_order1()
 
     ''' The method insert_buy(self, quantity, price) allow to insert in the object Book that we use 
     an order BUY, you need to specify the quantity and the price of the order. Then when the order 
@@ -96,7 +96,7 @@ class Book:
         self.display_book()
         print("-----------------------------------------------")
 
-     ''' The method insert_sell(self, quantity, price) allow to insert in the object Book that we use 
+    ''' The method insert_sell(self, quantity, price) allow to insert in the object Book that we use 
     an order SELL, you need to specify the quantity and the price of the order. Then when the order 
     is insert in the listOrder of the object Book we display the content of the object Book. '''
 
@@ -284,71 +284,71 @@ class Book:
                 if i.quantity == 0:
                     self.listOrder.remove(i)
     
-    def bubbleSortBuy(listBuy): 
+def bubbleSortBuy(listBuy): 
 
-        n = len(listBuy) 
+    n = len(listBuy) 
 
-        if (n == 0):
-            res = []
-        elif (n == 1):
-            res = listBuy
-        else :
-            # Traverse through all array elements 
-            for i in range(n): 
-                swapped = False
-        
-                # Last i elements are already in place 
-                for j in range(0, n-i-1): 
-        
-                    # traverse the array from 0 to 
-                    # n-i-1. Swap if the element  
-                    # found is greater than the 
-                    # next element 
-                    if (listBuy[j].__lt__(listBuy[j+1]) == True) : 
-                        listBuy[j],listBuy[j+1] = listBuy[j+1], listBuy[j]
-                        swapped = True
-                    else :
-                        if (listBuy[j].__eq__(listBuy[j+1]) == True): # check the id
-                            if (listBuy[j+1].iD < listBuy[j].iD):
-                                listBuy[j],listBuy[j+1] = listBuy[j+1], listBuy[j]
-                                swapped = True
-                # IF no two elements were swapped 
-                # by inner loop, then break 
-                if swapped == False: 
-                    break
-            return listBuy 
-
-    def bubbleSortSell(listSell): 
-
-        n = len(listSell) 
-
-        if (n == 0):
-            res = []
-        elif (n == 1):
-            res = listBuy
-        else :
+    if (n == 0):
+        res = []
+    elif (n == 1):
+        res = listBuy
+    else :
         # Traverse through all array elements 
-            for i in range(n): 
-                swapped = False
-        
-                # Last i elements are already in place 
-                for j in range(0, n-i-1): 
-        
-                    # traverse the array from 0 to 
-                    # n-i-1. Swap if the element  
-                    # found is greater than the 
-                    # next element 
-                    if (listSell[j].__lt__(listSell[j+1]) == True) : 
-                        listSell[j],listSell[j+1] = listSell[j+1], listSell[j]
-                        swapped = True
-                    else :
-                        if (listSell[j].__eq__(listSell[j+1]) == True): # check the id
-                            if (listSell[j+1].iD < listSell[j].iD):
-                                listSell[j],listSell[j+1] = listSell[j+1], listSell[j]
-                                swapped = True
-                # IF no two elements were swapped 
-                # by inner loop, then break 
-                if swapped == False: 
-                    break
-            return listSell 
+        for i in range(n): 
+            swapped = False
     
+            # Last i elements are already in place 
+            for j in range(0, n-i-1): 
+    
+                # traverse the array from 0 to 
+                # n-i-1. Swap if the element  
+                # found is greater than the 
+                # next element 
+                if (listBuy[j].__lt__(listBuy[j+1]) == True) : 
+                    listBuy[j],listBuy[j+1] = listBuy[j+1], listBuy[j]
+                    swapped = True
+                else :
+                    if (listBuy[j].__eq__(listBuy[j+1]) == True): # check the id
+                        if (listBuy[j+1].iD < listBuy[j].iD):
+                            listBuy[j],listBuy[j+1] = listBuy[j+1], listBuy[j]
+                            swapped = True
+            # IF no two elements were swapped 
+            # by inner loop, then break 
+            if swapped == False: 
+                break
+        return listBuy 
+
+def bubbleSortSell(listSell): 
+
+    n = len(listSell) 
+
+    if (n == 0):
+        res = []
+    elif (n == 1):
+        res = listBuy
+    else :
+    # Traverse through all array elements 
+        for i in range(n): 
+            swapped = False
+    
+            # Last i elements are already in place 
+            for j in range(0, n-i-1): 
+    
+                # traverse the array from 0 to 
+                # n-i-1. Swap if the element  
+                # found is greater than the 
+                # next element 
+                if (listSell[j].__lt__(listSell[j+1]) == True) : 
+                    listSell[j],listSell[j+1] = listSell[j+1], listSell[j]
+                    swapped = True
+                else :
+                    if (listSell[j].__eq__(listSell[j+1]) == True): # check the id
+                        if (listSell[j+1].iD < listSell[j].iD):
+                            listSell[j],listSell[j+1] = listSell[j+1], listSell[j]
+                            swapped = True
+            # IF no two elements were swapped 
+            # by inner loop, then break 
+            if swapped == False: 
+                break
+        return listSell 
+
