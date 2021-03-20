@@ -1,3 +1,6 @@
+import numpy as np
+import pandas as pd
+
 class Order:
 
     #question : alexis.bogroff.prof@gmail.com
@@ -22,7 +25,7 @@ class Order:
             res = True
         return res
 
-        ''' This method allow to compare 2 Order objects.
+    ''' This method allow to compare 2 Order objects.
     One Order1 is lower than an Order2 if the price of Order1 is lower than the price of the 
     Order2.'''
 
@@ -37,15 +40,17 @@ class Order:
 
     def display_order1(self):
         if self.side == "SELL":
-            if self.quantity !=0 : 
-               print(self.side, "",self.quantity ,"@",self.price," ","id = ",self.iD)
-               #print (self.quantity) test
-        elif self.quantity != 0 :
+            if self.quantity != 0:
+                print(self.side, "",self.quantity,"@",self.price," ","id = ",self.iD)
+        elif self.quantity!= 0:
             print(self.side, " ",self.quantity,"@",self.price," ","id = ",self.iD)
 
     def display_order2(self):
         print(self.side, " ",self.quantity,"@",self.price," ","id = ",self.iD, end="")
 
+
+   
+        
 class Book:
 
     ''' Constructor of the object Book, this object have a name and he is composed of a listOrder.
@@ -63,8 +68,32 @@ class Book:
     def display_book(self):
         print("Book on ",self.name)
         for i in self.listOrder:
-            print("        ", end="");i.display_order1()
+            if i.quantity != 0:
+                print("        ", end="")
+                i.display_order1()
+         
+    ''' The method display_dataframe(self) allows to display the 2 dataframes.'''    
+    
 
+    
+    def display_df(self):
+        df_buy=pd.DataFrame(columns = [ 'quantity','price','ID'])
+        df_sell=pd.DataFrame(columns = [ 'quantity','price','ID'])
+        
+        for i in self.listOrder:
+            if i.side=='BUY':
+                if i.quantity != 0:
+                    df_newrow=pd.DataFrame(data=np.array([[str(i.quantity), str(i.price), str(i.iD)]]), columns=['quantity','price','ID'])
+                    df_buy=pd.concat([df_buy, df_newrow], ignore_index=True)
+            else:
+                df_newrow=pd.DataFrame(data=np.array([[str(i.quantity), str(i.price), str(i.iD)]]), columns=['quantity','price','ID'])
+                df_sell=pd.concat([df_sell, df_newrow], ignore_index=True)
+        print(df_buy)
+        print(df_sell)
+        
+        
+        
+   
     ''' The method insert_buy(self, quantity, price) allow to insert in the object Book that we use 
     an order BUY, you need to specify the quantity and the price of the order. Then when the order 
     is insert in the listOrder of the object Book we display the content of the object Book. '''
@@ -94,9 +123,14 @@ class Book:
         #Show the content of the order book
         
         self.display_book()
+        
         print("-----------------------------------------------")
+        
+     
+        
+        
 
-     ''' The method insert_sell(self, quantity, price) allow to insert in the object Book that we use 
+    ''' The method insert_sell(self, quantity, price) allow to insert in the object Book that we use 
     an order SELL, you need to specify the quantity and the price of the order. Then when the order 
     is insert in the listOrder of the object Book we display the content of the object Book. '''
 
@@ -127,7 +161,7 @@ class Book:
         self.display_book()
 
         print("-----------------------------------------------")
-
+    
     def sort_order(self):
         listBuy = []
         listSell = []
@@ -169,7 +203,7 @@ class Book:
 
         #we update listorder of the current Book object with the sorted list of orders "res"
         self.listOrder = res
-
+    
     def execute_order_sell(self):
         list_execution =[]
         list_sell=[]
@@ -283,8 +317,11 @@ class Book:
             for i in self.listOrder:
                 if i.quantity == 0:
                     self.listOrder.remove(i)
+
     
-    def bubbleSortBuy(listBuy): 
+   
+
+def bubbleSortBuy(listBuy): 
 
         n = len(listBuy) 
 
@@ -318,37 +355,38 @@ class Book:
                     break
             return listBuy 
 
-    def bubbleSortSell(listSell): 
+def bubbleSortSell(listSell): 
 
-        n = len(listSell) 
+    n = len(listSell) 
 
-        if (n == 0):
-            res = []
-        elif (n == 1):
-            res = listBuy
-        else :
-        # Traverse through all array elements 
-            for i in range(n): 
-                swapped = False
-        
-                # Last i elements are already in place 
-                for j in range(0, n-i-1): 
-        
-                    # traverse the array from 0 to 
-                    # n-i-1. Swap if the element  
-                    # found is greater than the 
-                    # next element 
-                    if (listSell[j].__lt__(listSell[j+1]) == True) : 
-                        listSell[j],listSell[j+1] = listSell[j+1], listSell[j]
-                        swapped = True
-                    else :
-                        if (listSell[j].__eq__(listSell[j+1]) == True): # check the id
-                            if (listSell[j+1].iD < listSell[j].iD):
-                                listSell[j],listSell[j+1] = listSell[j+1], listSell[j]
-                                swapped = True
-                # IF no two elements were swapped 
-                # by inner loop, then break 
-                if swapped == False: 
-                    break
-            return listSell 
+    if (n == 0):
+        res = []
+    elif (n == 1):
+        res = listSell
+    else :
+    # Traverse through all array elements 
+        for i in range(n): 
+            swapped = False
     
+            # Last i elements are already in place 
+            for j in range(0, n-i-1): 
+    
+                # traverse the array from 0 to 
+                # n-i-1. Swap if the element  
+                # found is greater than the 
+                # next element 
+                if (listSell[j].__lt__(listSell[j+1]) == True) : 
+                    listSell[j],listSell[j+1] = listSell[j+1], listSell[j]
+                    swapped = True
+                else :
+                    if (listSell[j].__eq__(listSell[j+1]) == True): # check the id
+                        if (listSell[j+1].iD < listSell[j].iD):
+                            listSell[j],listSell[j+1] = listSell[j+1], listSell[j]
+                            swapped = True
+            # IF no two elements were swapped 
+            # by inner loop, then break 
+            if swapped == False: 
+                break
+        return listSell 
+
+        
