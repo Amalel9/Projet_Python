@@ -40,9 +40,15 @@ class Order:
 
     def display_order1(self):
         if self.side == "SELL":
+<<<<<<< HEAD
             if self.quantity != 0:
                 print(self.side, "",self.quantity,"@",self.price," ","id = ",self.iD)
         elif self.quantity!= 0:
+=======
+            print(self.side, "",self.quantity ,"@",self.price," ","id = ",self.iD)
+            
+        elif self.quantity != 0 :
+>>>>>>> 216f1e2ba84f841335ba722ab083389b8c17c8b0
             print(self.side, " ",self.quantity,"@",self.price," ","id = ",self.iD)
 
     def display_order2(self):
@@ -68,12 +74,17 @@ class Book:
     def display_book(self):
         print("Book on ",self.name)
         for i in self.listOrder:
+<<<<<<< HEAD
             if i.quantity != 0:
                 print("        ", end="")
                 i.display_order1()
          
     ''' The method display_dataframe(self) allows to display the 2 dataframes.'''    
     
+=======
+            if i.quantity !=0:
+                print("        ", end="");i.display_order1()
+>>>>>>> 216f1e2ba84f841335ba722ab083389b8c17c8b0
 
     
     def display_df(self):
@@ -319,6 +330,7 @@ class Book:
                     self.listOrder.remove(i)
 
     
+<<<<<<< HEAD
    
 
 def bubbleSortBuy(listBuy): 
@@ -358,10 +370,16 @@ def bubbleSortBuy(listBuy):
 def bubbleSortSell(listSell): 
 
     n = len(listSell) 
+=======
+def bubbleSortBuy(listBuy): 
+
+    n = len(listBuy) 
+>>>>>>> 216f1e2ba84f841335ba722ab083389b8c17c8b0
 
     if (n == 0):
         res = []
     elif (n == 1):
+<<<<<<< HEAD
         res = listSell
     else :
     # Traverse through all array elements 
@@ -371,6 +389,51 @@ def bubbleSortSell(listSell):
             # Last i elements are already in place 
             for j in range(0, n-i-1): 
     
+=======
+        res = listBuy
+    else :
+        # Traverse through all array elements 
+        for i in range(n): 
+            swapped = False
+    
+            # Last i elements are already in place 
+            for j in range(0, n-i-1): 
+    
+                # traverse the array from 0 to 
+                # n-i-1. Swap if the element  
+                # found is greater than the 
+                # next element 
+                if (listBuy[j].__lt__(listBuy[j+1]) == True) : 
+                    listBuy[j],listBuy[j+1] = listBuy[j+1], listBuy[j]
+                    swapped = True
+                else :
+                    if (listBuy[j].__eq__(listBuy[j+1]) == True): # check the id
+                        if (listBuy[j+1].iD < listBuy[j].iD):
+                            listBuy[j],listBuy[j+1] = listBuy[j+1], listBuy[j]
+                            swapped = True
+            # IF no two elements were swapped 
+            # by inner loop, then break 
+            if swapped == False: 
+                break
+        return listBuy 
+
+def bubbleSortSell(listSell): 
+
+    n = len(listSell) 
+
+    if (n == 0):
+        res = []
+    elif (n == 1):
+        res = listBuy
+    else :
+    # Traverse through all array elements 
+        for i in range(n): 
+            swapped = False
+    
+            # Last i elements are already in place 
+            for j in range(0, n-i-1): 
+    
+>>>>>>> 216f1e2ba84f841335ba722ab083389b8c17c8b0
                 # traverse the array from 0 to 
                 # n-i-1. Swap if the element  
                 # found is greater than the 
@@ -389,4 +452,7 @@ def bubbleSortSell(listSell):
                 break
         return listSell 
 
+<<<<<<< HEAD
         
+=======
+>>>>>>> 216f1e2ba84f841335ba722ab083389b8c17c8b0
