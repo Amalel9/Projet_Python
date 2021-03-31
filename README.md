@@ -23,6 +23,10 @@ $ git add .gitignore
 
 $ pip install -r requirements.txt
 
+$ pip install numpy
+
+$ pip install pandas
+
 $ pip freeze > requirements.txt
 
 
