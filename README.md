@@ -38,7 +38,7 @@ $ pip freeze > requirements.txt
 
 ## Exercice 4 : Write a bash script to launch the main.py class 
 
-#À faire. 
+$ source .env/bin/activate
 
 ## Exercice 5 : Add pandas for visualization
 
