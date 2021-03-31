@@ -50,4 +50,7 @@ $ source .env/bin/activate
 
 #Affichage des ordres sur un dataframe. 
 
+#Nous avons fusionner la branche pandas avec la branche main mais nous ne savons pas pourquoi la fusion n'apparaît pas sur le github. 
+#Donc la version du dataframe est dans la branche pandas. 
+
 
